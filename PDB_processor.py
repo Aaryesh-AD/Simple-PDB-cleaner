@@ -98,4 +98,23 @@ def process_pdb(input_file, output_file, hetatm_set):
     io = PDBIO()
     io.set_structure(structure)
     io.save(output_file)
-    
+
+# Main Function
+def main():
+    """Main function to handle argument parsing and execution."""
+    parser = argparse.ArgumentParser(description="Clean PDB files by removing water, heteroatoms, and non-protein residues.")
+    parser.add_argument("-i","--input", type=str, help="Path to the input PDB file.")
+    parser.add_argument("-o","--output", type=str, help="Path to save the cleaned PDB file.")
+    parser.add_argument("-r","--hetatm", type=str, nargs="*", default=["PO4"], help="List of heteroatoms to remove.")
+    parser.add_argument("-p","--keep-protein-only", action="store_true", help="Remove all non-protein residues except specified heteroatoms.(If added). Keeps only protein residues.")
+    parser.add_argument("-w","--remove-water", action="store_true", help="Remove all water molecules from the structure.")
+
+    args = parser.parse_args()
+
+    # Process the PDB file with provided options
+    process_pdb(args.input, args.output, set(args.hetatm), args.keep_protein_only, args.remove_water)
+
+if __name__ == "__main__":
+    print("\nPDB_processor - Simple PDB file cleaning script using Biopython.")
+    print("Author: Aaryesh Deshpande (aaryeshad@gmail.com)")
+    main()
