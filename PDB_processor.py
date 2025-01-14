@@ -1,4 +1,16 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+PDB_processor.py
+Simple PDB file cleaning script using Biopython.
+Dependencies: Biopython (pip install biopython) or (conda install conda-forge::biopython)
+
+Author: Aaryesh Deshpande (aaryeshad@gmail.com)
+Date: 01-14-2025
+"""
+
 # Import Modules
+
 import os
 import argparse
 import string
