@@ -79,3 +79,23 @@ def split_residues(residues):
             hetero_chains[chain_id][resname].append(res['residue'])
 
     return chains, hetero_chains
+
+def process_pdb(input_file, output_file, hetatm_set):
+    """Parse, clean, and save the PDB file."""
+    parser = PDBParser(QUIET=True)
+    structure = parser.get_structure("protein", input_file)
+
+    # Remove water, keep only protein residues, and remove specified heteroatoms
+    structure = remove_water(structure)
+    structure = keep_only_protein_residues(structure)
+    structure = remove_heteroatoms(structure, hetatm_set)
+
+    # Extract and split residues
+    residues = get_residues(structure)
+    chains, hetero_chains = split_residues(residues)
+
+    # Save the cleaned structure
+    io = PDBIO()
+    io.set_structure(structure)
+    io.save(output_file)
+    
