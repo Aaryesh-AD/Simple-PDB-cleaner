@@ -13,8 +13,7 @@ Date: 01-14-2025
 
 import os
 import argparse
-import string
-from Bio.PDB import PDBParser, PDBIO, Chain, Residue
+from Bio.PDB import PDBParser, PDBIO
 
 # Suppress PDB warnings
 import warnings
