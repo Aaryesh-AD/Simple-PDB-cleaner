@@ -9,28 +9,56 @@ This Python script provides a simple automated approach for cleaning and preproc
 - **Keep Only Protein Residues**: Retains only standard amino acids and common protonation variants, removing all non-protein residues.
 - **Flexible Usage**: Users can apply different cleaning operations based on their specific requirements.
 
-## Requirements
+Here’s a refined version with improved wording and clarity:
 
-- Python 3.6+
-- Biopython
+---
 
-To install Biopython, run:
+## Using Docker: How to Use the Docker Image
 
-```
-# Using python pip 
-pip install biopython
-
-# Using conda
-conda install conda-forge::biopython
+### Build the Docker Image
+Clone this repository and navigate to the directory containing the `Dockerfile`. Build the Docker image with the following command:
+```bash
+docker build -t pdb_cleaner .
 ```
 
-## Usage
-
-Run the script using the following command:
-
+### Run the Docker Container
+Navigate to the directory containing your input PDB files. Use the following command to run the script:
+```bash
+docker run --rm -v "$(pwd):/data" -t pdb_cleaner -i /data/input.pdb -o /data/output.pdb
 ```
+
+- Replace `input.pdb` and `output.pdb` with the names of your input and output PDB files, respectively.
+- The `--rm` flag ensures the container is removed after execution.
+- The `-v "$(pwd):/data"` mounts the current directory to `/data` inside the container.
+
+---
+
+## Using Python: How to Use the Script
+
+### Requirements
+- Python 3.6 or newer
+- [Biopython](https://biopython.org/)
+
+### Installing Biopython
+Install Biopython using one of the following methods:
+
+- Using `pip`:
+  ```bash
+  pip install biopython
+  ```
+
+- Using `conda`:
+  ```bash
+  conda install -c conda-forge biopython
+  ```
+
+### Running the Script
+Run the script directly with Python:
+```bash
 python pdb_processor.py -i <input_pdb_file> -o <output_pdb_file> [options]
 ```
+
+- Replace `<input_pdb_file>` and `<output_pdb_file>` with the names of your input and output PDB files, respectively.
 
 ### Command-line Arguments
 
@@ -41,6 +69,8 @@ python pdb_processor.py -i <input_pdb_file> -o <output_pdb_file> [options]
 | `-r, --hetatm`            | List of heteroatoms to remove (e.g., `PO4`, `SO4`).          |
 | `-p, --keep-protein-only` | Remove all non-protein residues, keeping only protein residues (cannot be used with `--hetatm`). |
 | `-w, --remove-water`      | Remove all water molecules from the structure.               |
+
+---
 
 ### Example Usages
 
@@ -64,6 +94,8 @@ python pdb_processor.py -i <input_pdb_file> -o <output_pdb_file> [options]
 
 **Error Handling**: Ensures incompatible options are not used together (e.g., `--hetatm` and `--keep-protein-only`).
 
+---
+
 ## Issues and Contributions
 
 If you encounter any issues, discover any bugs, or would like to contribute to the project, feel free to:
@@ -72,8 +104,9 @@ If you encounter any issues, discover any bugs, or would like to contribute to t
 2. **Request a Feature**: If you have a feature in mind that would enhance the script, you can create a feature request.
 3. **Contribute**: Fork the repository, make your changes, and submit a pull request. Contributions are always welcome, and your support will help improve the project!
 
-
+---
 
 Aaryesh Deshpande
 *Email*: aaryeshad@gmail.com
 
+---
